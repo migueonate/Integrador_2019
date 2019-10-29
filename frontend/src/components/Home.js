@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
-export default class CreateNote extends Component {
-
+export default class Home extends Component {
     state = {
         title: '',
         content: '',
         date: new Date(),
         empresaSelected: '',
         planSelected: '',
+        servicioSelected: '',
+        especialidadSelected: '',
         empresas: [],
         plans: [],
+        servicios: [],
+        especialidades: [],
         editing: false,
         _id: ''
 
@@ -34,23 +36,25 @@ export default class CreateNote extends Component {
                 planSelected: res2.data[0].planname
             })
         }
-        
-        if (this.props.match.params.id) {
-            console.log(this.props.match.params.id)
-            const res = await axios.get('http://localhost:4000/api/notes/' + this.props.match.params.id);
-            console.log(res.data)
-            console.log(res2.data)
-            
+
+        const res3 = await axios.get('http://localhost:4000/api/servicios');
+        if (res3.data.length > 0) {
             this.setState({
-                title: res.data.title,
-                content: res.data.content,
-                date: new Date(res.data.date),
-                empresaSelected: res.data.author,
-                planSelected: res2.data.author2,
-                _id: res.data._id,
-                editing: true
-            });
+                servicios: res3.data.map(servicio => servicio.servicioname),
+                servicioSelected: res3.data[0].servicioname
+            })
         }
+
+        const res4 = await axios.get('http://localhost:4000/api/especialidades');
+        if (res4.data.length > 0) {
+            this.setState({
+                especialidades: res4.data.map(especialidad => especialidad.especialidadname),
+                especialidadSelected: res4.data[0].especialidadname
+            })
+        }
+
+
+
     }
 
     onSubmit = async (e) => {
@@ -85,19 +89,17 @@ export default class CreateNote extends Component {
     }
 
 
-    onChangeDate = date => {
-        this.setState({ date });
-    }
 
     render() {
         return (
+            
             <div className="col-md-6 offset-md-3">
                 <div className="card card-body">
-                    <h4>Crear Convenio</h4>
+                    <h4> </h4>
                     <form onSubmit={this.onSubmit}>
                         {/* SELECT THE EMPRESA */}
-                        Empresa*
                         <div className="form-group">
+                            Empresa*
                             <select
                                 className="form-control"
                                 value={this.state.empresaSelected}
@@ -113,9 +115,9 @@ export default class CreateNote extends Component {
                                 }
                             </select>
                         </div>
-                        Plan*
                         {/* SELECT THE PLAN */}
                         <div className="form-group">
+                            Plan*
                             <select
                                 className="form-control"
                                 value={this.state.planSelected}
@@ -131,46 +133,59 @@ export default class CreateNote extends Component {
                                 }
                             </select>
                         </div>
-                        {/* Note Title */}
+
+                        {/* SELECT SERVICE*/}
                         <div className="form-group">
-                            <input
-                                type="text"
+                            Servicio*
+                            <select
                                 className="form-control"
-                                placeholder="Nombre Convenio"
+                                value={this.state.servicioSelected}
                                 onChange={this.onInputChange}
-                                name="title"
-                                value={this.state.title}
-                                required />
-                        </div>
-                        {/* Note Content */}
-                        <div className="form-group">
-                            <textarea
-                                type="text"
-                                className="form-control"
-                                placeholder="Anotaciones"
-                                name="content"
-                                onChange={this.onInputChange}
-                                value={this.state.content}
-                                required
-                                >
-                            </textarea>
-                        </div>
-                        Valido Hasta...
-                        {/* Note Date */}
-                        <div className="form-group">
-                            <DatePicker className="form-control" selected={this.state.date} onChange={this.onChangeDate} />
+                                name="servicioSelected"
+                                required>
+                                {
+                                    this.state.servicios.map(servicio => (
+                                        <option key={servicio} value={servicio}>
+                                            {servicio}
+                                        </option>
+                                    ))
+                                }
+                            </select>
                         </div>
 
+                        {/* SELECT  ESPECIALIDAD */}
+                        <div className="form-group">
+                            Especialidad*
+                            <select
+                                className="form-control"
+                                value={this.state.especialidadSelected}
+                                onChange={this.onInputChange}
+                                name="especialidadSelected"
+                                required>
+                                {
+                                    this.state.especialidades.map(especialidad => (
+                                        <option key={especialidad} value={especialidad}>
+                                            {especialidad}
+                                        </option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+
+
+
+
                         <div className="text-center">
-                            <button className="btn btn-primary ">
-                                <i className="material-icons">
-                                    save</i>
-                            </button>
+                            <Link to="/map" className="btn btn-info" >
+                                Buscar
+                            </Link>
                         </div>
 
                     </form>
                 </div>
             </div>
+
+
         )
     }
 }

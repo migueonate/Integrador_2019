@@ -1,44 +1,44 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-export default class CreateEmpresa extends Component {
+export default class CreateEspecialidad extends Component {
 
     state = {
-        empresaname: '',
-        empresas: []
+        especialidadname: '',
+        especialidades: []
     }
 
     async componentDidMount() {
-        this.getEmpresas();
+        this.getEspecialidades();
     }
 
-    getEmpresas = async () => {
-        const res = await axios.get('http://localhost:4000/api/empresas');
+    getEspecialidades = async () => {
+        const res = await axios.get('http://localhost:4000/api/especialidades');
         this.setState({
-            empresas: res.data
+            especialidades: res.data
         });
     }
 
-    onChangeEmpresaname = e => {
+    onChangeEspecialidadname = e => {
         this.setState({
-            empresaname: e.target.value
+            especialidadname: e.target.value
         })
     }
 
     onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:4000/api/empresas', {
-            empresaname: this.state.empresaname
+        await axios.post('http://localhost:4000/api/especialidades', {
+            especialidadname: this.state.especialidadname
         });
-        this.setState({ empresaname: '' });
-        this.getEmpresas();
+        this.setState({ especialidadname: '' });
+        this.getEspecialidades();
     }
 
-    deleteEmpresa = async (empresaId) => {
-        const response = window.confirm('Esta seguro de eliminar esta EMPRESA?');
+    deleteEspecialidad = async (especialidadId) => {
+        const response = window.confirm('Esta seguro de eliminar esta ESPECIALIDAD?');
         if (response) {
-            await axios.delete('http://localhost:4000/api/empresas/' + empresaId);
-            this.getEmpresas();
+            await axios.delete('http://localhost:4000/api/especialidades/' + especialidadId);
+            this.getEspecialidades();
         }
     }
 
@@ -47,14 +47,14 @@ export default class CreateEmpresa extends Component {
             <div className="row">
                 <div className="col-md-4">
                     <div className="card card-body">
-                        <h3>Nueva Empresa</h3>
+                        <h3>Nueva Especialidad</h3>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <input
                                     className="form-control"
-                                    value={this.state.empresaname}
+                                    value={this.state.especialidadname}
                                     type="text"
-                                    onChange={this.onChangeEmpresaname}
+                                    onChange={this.onChangeEspecialidadname}
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary">
@@ -67,9 +67,9 @@ export default class CreateEmpresa extends Component {
                 <div className="col-md-8">
                     <ul className="list-group">
                         {
-                            this.state.empresas.map(empresa => (
-                                <li className="list-group-item list-group-item-action" key={empresa._id} onDoubleClick={() => this.deleteEmpresa(empresa._id)}>
-                                    {empresa.empresaname}
+                            this.state.especialidades.map(especialidad => (
+                                <li className="list-group-item list-group-item-action" key={especialidad._id} onDoubleClick={() => this.deleteEspecialidad(especialidad._id)}>
+                                    {especialidad.especialidadname}
                                     
                                 </li>
                             ))

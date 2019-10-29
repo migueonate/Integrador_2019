@@ -13,5 +13,7 @@ app.use(express.json());
 app.use('/api/notes', require('./routes/notes'));
 app.use('/api/empresas', require('./routes/empresas'));
 app.use('/api/plans', require('./routes/plans'));
+app.use('/api/servicios', require('./routes/servicios'));
+app.use('/api/especialidades', require('./routes/especialidades'));
 
 module.exports = app;

@@ -14,23 +14,35 @@ export default class Navigation extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
+
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item active">
                                 <Link to="/" className="nav-link">Convenios</Link>
                             </li>
+
                             <li className="nav-item">
                                 <Link to="/create" className="nav-link">Nuevo Convenio</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link to="/empresa" className="nav-link">Nueva Empresa</Link>
+
+
+                            <li className="nav-item dropdown"  >
+                                <Link className="nav-link " data-toggle="dropdown" >Servicios</Link>
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/empresa" >Nueva Empresa</Link></li>
+                                    <li><Link to="/plan" >Nuevo Plan</Link></li>
+                                    <li><Link to="/servicio" >Nuevo Servicio</Link></li>
+                                    <li><Link to="/especialidad" >Nueva Especialidad</Link></li>
+
+                                </ul>
                             </li>
-                            <li className="nav-item">
-                                <Link to="/plan" className="nav-link">Nuevo Plan</Link>
-                            </li>
+
                         </ul>
                     </div>
+
+
                 </div>
-            </nav>
+
+            </nav >
         )
     }
 }

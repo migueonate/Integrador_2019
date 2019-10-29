@@ -1,44 +1,44 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-export default class CreatePlan extends Component {
+export default class CreateServicio extends Component {
 
     state = {
-        planname: '',
-        plans: []
+        servicioname: '',
+        servicios: []
     }
 
     async componentDidMount() {
-        this.getPlans();
+        this.getServicios();
     }
 
-    getPlans = async () => {
-        const res = await axios.get('http://localhost:4000/api/plans');
+    getServicios = async () => {
+        const res = await axios.get('http://localhost:4000/api/servicios');
         this.setState({
-            plans: res.data
+            servicios: res.data
         });
     }
 
-    onChangePlanname = o => {
+    onChangeServicioname = e => {
         this.setState({
-            planname: o.target.value
+            servicioname: e.target.value
         })
     }
 
-    onSubmit = async (o) => {
-        o.preventDefault();
-        await axios.post('http://localhost:4000/api/plans', {
-            planname: this.state.planname
+    onSubmit = async (e) => {
+        e.preventDefault();
+        await axios.post('http://localhost:4000/api/servicios', {
+            servicioname: this.state.servicioname
         });
-        this.setState({ planname: '' });
-        this.getPlans();
+        this.setState({ servicioname: '' });
+        this.getServicios();
     }
 
-    deletePlan = async (planId) => {
-        const response = window.confirm('Esta seguro de eliminar este PLAN?');
+    deleteServicio = async (servicioId) => {
+        const response = window.confirm('Esta seguro de eliminar este SERVICIO?');
         if (response) {
-            await axios.delete('http://localhost:4000/api/plans/' + planId);
-            this.getPlans();
+            await axios.delete('http://localhost:4000/api/servicios/' + servicioId);
+            this.getServicios();
         }
     }
 
@@ -47,14 +47,14 @@ export default class CreatePlan extends Component {
             <div className="row">
                 <div className="col-md-4">
                     <div className="card card-body">
-                        <h3>Nuevo Plan</h3>
+                        <h3>Nuevo Servicio</h3>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <input
                                     className="form-control"
-                                    value={this.state.planname}
+                                    value={this.state.servicioname}
                                     type="text"
-                                    onChange={this.onChangePlanname}
+                                    onChange={this.onChangeServicioname}
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary">
@@ -67,9 +67,9 @@ export default class CreatePlan extends Component {
                 <div className="col-md-8">
                     <ul className="list-group">
                         {
-                            this.state.plans.map(plan => (
-                                <li className="list-group-item list-group-item-action" key={plan._id} onDoubleClick={() => this.deletePlan(plan._id)}>
-                                    {plan.planname}
+                            this.state.servicios.map(servicio => (
+                                <li className="list-group-item list-group-item-action" key={servicio._id} onDoubleClick={() => this.deleteServicio(servicio._id)}>
+                                    {servicio.servicioname}
                                     
                                 </li>
                             ))
