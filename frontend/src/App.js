@@ -31,7 +31,7 @@ function App() {
         <Route path="/especialidad" component={CreateEspecialidad} />
 
       </div>
-    </Router>/*,
+    </Router>,
 
 
      <Router>
@@ -41,7 +41,7 @@ function App() {
         <Route path="/info" component={Info} />
         <Route path="/map" component={MapContainer} />
       </div>
-    </Router>*/
+    </Router>
 
 
 
