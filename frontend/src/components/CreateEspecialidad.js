@@ -13,7 +13,7 @@ export default class CreateEspecialidad extends Component {
     }
 
     getEspecialidades = async () => {
-        const res = await axios.get('http://localhost:4000/api/especialidades');
+        const res = await axios.get('http://localhost/api/especialidades');
         this.setState({
             especialidades: res.data
         });
@@ -27,7 +27,7 @@ export default class CreateEspecialidad extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:4000/api/especialidades', {
+        await axios.post('http://localhost/api/especialidades', {
             especialidadname: this.state.especialidadname
         });
         this.setState({ especialidadname: '' });
@@ -37,7 +37,7 @@ export default class CreateEspecialidad extends Component {
     deleteEspecialidad = async (especialidadId) => {
         const response = window.confirm('Esta seguro de eliminar esta ESPECIALIDAD?');
         if (response) {
-            await axios.delete('http://localhost:4000/api/especialidades/' + especialidadId);
+            await axios.delete('http://localhost/api/especialidades/' + especialidadId);
             this.getEspecialidades();
         }
     }

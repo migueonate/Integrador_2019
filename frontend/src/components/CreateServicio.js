@@ -13,7 +13,7 @@ export default class CreateServicio extends Component {
     }
 
     getServicios = async () => {
-        const res = await axios.get('http://localhost:4000/api/servicios');
+        const res = await axios.get('http://localhost/api/servicios');
         this.setState({
             servicios: res.data
         });
@@ -27,7 +27,7 @@ export default class CreateServicio extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:4000/api/servicios', {
+        await axios.post('http://localhost/api/servicios', {
             servicioname: this.state.servicioname
         });
         this.setState({ servicioname: '' });
@@ -37,7 +37,7 @@ export default class CreateServicio extends Component {
     deleteServicio = async (servicioId) => {
         const response = window.confirm('Esta seguro de eliminar este SERVICIO?');
         if (response) {
-            await axios.delete('http://localhost:4000/api/servicios/' + servicioId);
+            await axios.delete('http://localhost/api/servicios/' + servicioId);
             this.getServicios();
         }
     }

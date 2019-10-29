@@ -13,7 +13,7 @@ export default class CreateEmpresa extends Component {
     }
 
     getEmpresas = async () => {
-        const res = await axios.get('http://localhost:4000/api/empresas');
+        const res = await axios.get('http://localhost/api/empresas');
         this.setState({
             empresas: res.data
         });
@@ -27,7 +27,7 @@ export default class CreateEmpresa extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:4000/api/empresas', {
+        await axios.post('http://localhost/api/empresas', {
             empresaname: this.state.empresaname
         });
         this.setState({ empresaname: '' });
@@ -37,7 +37,7 @@ export default class CreateEmpresa extends Component {
     deleteEmpresa = async (empresaId) => {
         const response = window.confirm('Esta seguro de eliminar esta EMPRESA?');
         if (response) {
-            await axios.delete('http://localhost:4000/api/empresas/' + empresaId);
+            await axios.delete('http://localhost/api/empresas/' + empresaId);
             this.getEmpresas();
         }
     }

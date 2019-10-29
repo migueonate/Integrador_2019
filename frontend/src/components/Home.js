@@ -21,7 +21,7 @@ export default class Home extends Component {
     }
 
     async componentDidMount() {
-        const res = await axios.get('http://localhost:4000/api/empresas');
+        const res = await axios.get('http://localhost/api/empresas');
         if (res.data.length > 0) {
             this.setState({
                 empresas: res.data.map(empresa => empresa.empresaname),
@@ -29,7 +29,7 @@ export default class Home extends Component {
             })
         }
 
-        const res2 = await axios.get('http://localhost:4000/api/plans');
+        const res2 = await axios.get('http://localhost/api/plans');
         if (res2.data.length > 0) {
             this.setState({
                 plans: res2.data.map(plan => plan.planname),
@@ -37,7 +37,7 @@ export default class Home extends Component {
             })
         }
 
-        const res3 = await axios.get('http://localhost:4000/api/servicios');
+        const res3 = await axios.get('http://localhost/api/servicios');
         if (res3.data.length > 0) {
             this.setState({
                 servicios: res3.data.map(servicio => servicio.servicioname),
@@ -45,7 +45,7 @@ export default class Home extends Component {
             })
         }
 
-        const res4 = await axios.get('http://localhost:4000/api/especialidades');
+        const res4 = await axios.get('http://localhost/api/especialidades');
         if (res4.data.length > 0) {
             this.setState({
                 especialidades: res4.data.map(especialidad => especialidad.especialidadname),
@@ -67,7 +67,7 @@ export default class Home extends Component {
                 author2: this.state.planSelected,
                 date: this.state.date
             };
-            await axios.put('http://localhost:4000/api/notes/' + this.state._id, updatedNote);
+            await axios.put('http://localhost/api/notes/' + this.state._id, updatedNote);
         } else {
             const newNote = {
                 title: this.state.title,
@@ -76,7 +76,7 @@ export default class Home extends Component {
                 author2: this.state.planSelected,
                 date: this.state.date
             };
-            axios.post('http://localhost:4000/api/notes', newNote);
+            axios.post('http://localhost/api/notes', newNote);
         }
         window.location.href = '/';
 
