@@ -13,7 +13,7 @@ export default class CreatePlan extends Component {
     }
 
     getPlans = async () => {
-        const res = await axios.get('http://localhost/api/plans');
+        const res = await axios.get('http://10.154.12.29/api/plans');
         this.setState({
             plans: res.data
         });
@@ -27,7 +27,7 @@ export default class CreatePlan extends Component {
 
     onSubmit = async (o) => {
         o.preventDefault();
-        await axios.post('http://localhost/api/plans', {
+        await axios.post('http://10.154.12.29/api/plans', {
             planname: this.state.planname
         });
         this.setState({ planname: '' });
@@ -37,7 +37,7 @@ export default class CreatePlan extends Component {
     deletePlan = async (planId) => {
         const response = window.confirm('Esta seguro de eliminar este PLAN?');
         if (response) {
-            await axios.delete('http://localhost/api/plans/' + planId);
+            await axios.delete('http://10.154.12.29/api/plans/' + planId);
             this.getPlans();
         }
     }

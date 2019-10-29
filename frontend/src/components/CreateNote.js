@@ -19,7 +19,7 @@ export default class CreateNote extends Component {
     }
 
     async componentDidMount() {
-        const res = await axios.get('http://localhost/api/empresas');
+        const res = await axios.get('http://10.154.12.29/api/empresas');
         if (res.data.length > 0) {
             this.setState({
                 empresas: res.data.map(empresa => empresa.empresaname),
@@ -27,7 +27,7 @@ export default class CreateNote extends Component {
             })
         }
 
-        const res2 = await axios.get('http://localhost/api/plans');
+        const res2 = await axios.get('http://10.154.12.29/api/plans');
         if (res2.data.length > 0) {
             this.setState({
                 plans: res2.data.map(plan => plan.planname),
@@ -37,7 +37,7 @@ export default class CreateNote extends Component {
         
         if (this.props.match.params.id) {
             console.log(this.props.match.params.id)
-            const res = await axios.get('http://localhost/api/notes/' + this.props.match.params.id);
+            const res = await axios.get('http://10.154.12.29/api/notes/' + this.props.match.params.id);
             console.log(res.data)
             console.log(res2.data)
             
@@ -63,7 +63,7 @@ export default class CreateNote extends Component {
                 author2: this.state.planSelected,
                 date: this.state.date
             };
-            await axios.put('http://localhost/api/notes/' + this.state._id, updatedNote);
+            await axios.put('http://10.154.12.29/api/notes/' + this.state._id, updatedNote);
         } else {
             const newNote = {
                 title: this.state.title,
@@ -72,7 +72,7 @@ export default class CreateNote extends Component {
                 author2: this.state.planSelected,
                 date: this.state.date
             };
-            axios.post('http://localhost/api/notes', newNote);
+            axios.post('http://10.154.12.29/api/notes', newNote);
         }
         window.location.href = '/';
 

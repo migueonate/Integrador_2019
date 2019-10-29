@@ -14,14 +14,14 @@ export default class NotesList extends Component {
     }
 
     getNotes = async () => {
-        const res = await axios.get('http://localhost/api/notes')
+        const res = await axios.get('http://10.154.12.29/api/notes')
         this.setState({
             notes: res.data
         });
     }
 
     deleteNote = async (noteId) => {
-        await axios.delete('http://localhost/api/notes/' + noteId);
+        await axios.delete('http://10.154.12.29/api/notes/' + noteId);
         this.getNotes();
     }
 
